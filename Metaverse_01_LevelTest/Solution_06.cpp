@@ -6,7 +6,7 @@ int main()
 	char card_img[4] = { '♠','♣','♥','◆' };
 	
 	
-
+	
 	srand(time(NULL));
 
 	//유저에게 카드를 번호를 나눠줌

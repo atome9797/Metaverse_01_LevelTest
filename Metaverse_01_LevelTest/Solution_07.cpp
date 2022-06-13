@@ -84,8 +84,8 @@ int main()
 		}
 
 
-		int count_line_w[5] = { 5, 5 ,5, 5,5 }; //가로줄 카운트
-		int count_line_h[5] = { 5, 5 ,5, 5,5 }; //세로줄 카운트
+		int count_line_w[5] = { 5, 5 ,5, 5, 5 }; //가로줄 카운트
+		int count_line_h[5] = { 5, 5 ,5, 5, 5 }; //세로줄 카운트
 		int count_line_s1 = 5; //대각선 카운트
 		int count_line_s2 = 5; //대각선 카운트
 
