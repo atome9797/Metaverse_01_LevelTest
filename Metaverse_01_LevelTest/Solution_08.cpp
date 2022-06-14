@@ -8,7 +8,16 @@ int main()
 	std::cout << "배열의 크기를 입력하세요 : ";
 	scanf("%d", &snail);
 
-	int snail_map[100][100] = {0};
+	//int snail_map[100][100] = {0};
+	
+	//2차원 배열 동적할당
+	int** arr = new int* [snail];
+
+	for (int i = 0; i < snail; i++)
+	{
+		arr[i] = new int[snail];
+	}
+
 
 	//x, y좌표를 구한다음 해당 촤표값에 count 값을 넣는 방식으로 만들기
 	int x = 0;
@@ -18,7 +27,7 @@ int main()
 	int snail_defend_x = snail - 1;
 	int snail_defend_y = snail - 1;
 	int switchNum = 0;
-	snail_map[0][0] = 1;
+	arr[0][0] = 1;
 	for (int i = 1; i < snail * snail; i++)
 	{
 			
@@ -52,7 +61,7 @@ int main()
 			case 3: x--; break;
 			}
 
-			snail_map[x][y] = count;
+			arr[x][y] = count;
 			count++;
 
 		
@@ -62,10 +71,18 @@ int main()
 	{
 		for (int j = 0; j < snail; j++)
 		{
-			std::cout << snail_map[i][j] << "    ";
+			std::cout << arr[i][j] << "\t";
 		}
 		std::cout << std::endl;
 	}
+
+
+	//할당 해제
+	for (int i = 0; i < snail; i++)
+	{
+		delete[] arr[i];
+	}
+	delete[] arr;
 
 
 	return 0;
