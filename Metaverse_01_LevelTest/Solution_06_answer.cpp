@@ -33,7 +33,8 @@ public:
 	Deck() = default;
 	Deck(const Deck& other) = delete;
 	Deck& operator=(const Deck& other) = delete;
-
+	~Deck() = default;
+	
 	/// <summary>
 	/// 카드 7장을 뽑아서 덱을 구성한다.
 	/// 모든 덱은 카드가 중복되지 않아야 한다.
@@ -82,6 +83,21 @@ public:
 
 		stringstream ss;
 
+		bool card_Exsit = true;
+		int card_count = 0;
+
+		for (int i = 0; i < 7; i++)
+		{
+			if (deck[i] == 0) {
+				card_count++;
+			}
+		}
+
+		if (card_count == 7) {
+			card_Exsit = false;
+		}
+
+
 		for (int i = 0; i < 7; i++)
 		{
 			int cardType = deck[i] / 13;
@@ -98,7 +114,7 @@ public:
 		}
 
 		//덱의 출력값이 null이면 the deck is empty 반환
-		if (ss.str() == "")
+		if (card_Exsit == false)
 		{
 			return "the deck is empty";
 		}
@@ -250,9 +266,20 @@ int main() {
 	//	cout << ConvertToCardString(player2Deck[i]) << " ";
 	//}
 	
+	Deck decks[7];
+	for (int i = 0; i < 7; i++)
+	{
+		decks[i].Make();
+		cout << decks[i].ToString() << endl;
+	}
+
 	Deck deck;
-	deck.Make();
-	deck.ToString();
+	if (deck.Make() == false) {
+		cout << "거짓" << endl;
+	}
+
+	cout << deck.ToString() << endl;
+
 
 	return 0;
 }

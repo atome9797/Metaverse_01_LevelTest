@@ -4,36 +4,39 @@ using namespace std;
 
 #define BLANK 0
 
-int main()
+class Bingo
 {
+public:
 
-	//1. 빙고판을 초기화
-	srand(time(NULL));
-	bool isUsed[26] = { false };
-	int board[5][5] = { 0 };
-	for (int i = 0; i < 5; i++)
+	Bingo(const Bingo& other) = delete;
+	Bingo& operator=(const Bingo& other) = delete;
+
+	//빙고 초기화
+	Bingo() 
 	{
-		for (int j = 0; j < 5; j++)
+		//1. 빙고판을 초기화
+		srand(time(NULL));
+		for (int i = 0; i < 5; i++)
 		{
-			int n = 0;
-
-			do
+			for (int j = 0; j < 5; j++)
 			{
-				n = rand() % 25 + 1;
-				
-			} while (isUsed[n] == true);
+				int n = 0;
 
-			board[i][j] = n;
-			isUsed[n] = true;
+				do
+				{
+					n = rand() % 25 + 1;
+
+				} while (isUsed[n] == true);
+
+				board[i][j] = n;
+				isUsed[n] = true;
+			}
+
 		}
-
 	}
 
-	int bingoCount = 0;
-	while (1) {
-		system("cls");
-
-		//2. 빙고 현황출력
+	void BingoMap()
+	{
 		for (int i = 0; i < 5; i++)
 		{
 			for (int j = 0; j < 5; j++)
@@ -51,23 +54,10 @@ int main()
 			cout << endl;
 
 		}
+	}
 
-		cout << "현제 " << bingoCount << "줄의 빙고가 완성되었습니다." << endl;
-
-		//3.사용자로 부터 입력 받음
-		cout << "숫자를 입력해주세요. : ";
-
-		int input;
-		cin >> input;
-
-		//3-1. 오입력이 들어왓다면 
-		if (input < 0 || input > 25)
-		{
-			//2번부터 다시 시작한다.
-			continue;
-		}
-
-
+	int BingoCount(int input)
+	{
 		//4. 빙고판을 최신화 => 숫자를 지워 준다.
 		for (int i = 0; i < 5; i++)
 		{
@@ -168,7 +158,42 @@ int main()
 			}
 		}
 
-		bingoCount = count;
+		return count;
+	}
+
+
+private:
+	bool isUsed[26] = { false };
+	int board[5][5] = { 0 };
+};
+
+int main()
+{
+
+	int bingoCount = 0;
+
+	Bingo bingo;
+	while (1) {
+		system("cls");
+
+		bingo.BingoMap();
+
+		cout << "현제 " << bingoCount << "줄의 빙고가 완성되었습니다." << endl;
+
+		//3.사용자로 부터 입력 받음
+		cout << "숫자를 입력해주세요. : ";
+
+		int input;
+		cin >> input;
+
+		//3-1. 오입력이 들어왓다면 
+		if (input < 0 || input > 25)
+		{
+			//2번부터 다시 시작한다.
+			continue;
+		}
+
+		bingoCount = bingo.BingoCount(input);
 
 
 		//6. 2번 부터 다시 반복 한다.
