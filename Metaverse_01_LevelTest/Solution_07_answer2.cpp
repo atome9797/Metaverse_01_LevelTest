@@ -185,7 +185,7 @@ int main()
 
 		int input;
 		cin >> input;
-
+		
 		//3-1. 오입력이 들어왓다면 
 		if (input < 0 || input > 25)
 		{
