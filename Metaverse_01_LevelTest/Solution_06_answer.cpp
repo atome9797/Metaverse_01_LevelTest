@@ -2,13 +2,6 @@
 #include <sstream>
 using namespace std;
 
-//0 ~ 12 :스페이드
-//13 ~ 25 :클로버
-//26 ~ 38 :하트
-//39 ~ 51 :다이아
-//52 : 조커
-static bool isUsedCard[53] = { false };
-
 
 
 //Deck 타입
@@ -26,7 +19,18 @@ static bool isUsedCard[53] = { false };
 
 class Deck
 {
-	
+
+//0 ~ 12 :스페이드
+//13 ~ 25 :클로버
+//26 ~ 38 :하트
+//39 ~ 51 :다이아
+//52 : 조커
+static bool isUsedCard[53]; 
+//private에 선언했어도 static은 정적 변수이므로 어디에서든 쓸수있는 변수가 된다.
+static int remainCard;
+static const string CARD_TYPE[4];
+static const string CARD_NUMBER[13];
+
 public:
 
 
@@ -47,19 +51,12 @@ public:
 
 		//만약 isUsedCard 배열이 꽉차면 무한 루프에 빠진다.
 		//그러므로 배열개수를 측정하고 true false를 출력한다.
-		int card_count = 0;
 		
-		for (int i = 0; i < 53; i++)
-		{
-			if (isUsedCard[i] == false) {
-				card_count++;
-			}
-		}
-
-		if (card_count < 7) {
+		if (remainCard < 7) {
 			return false;
 		}
-
+		
+		
 		for (int i = 0; i < 7; i++)
 		{
 			int random = 0;
@@ -72,18 +69,27 @@ public:
 			isUsedCard[random] = true;
 			deck[i] = random;
 		}
+		//사후 조건 : 덱이 완성되었다.
+		remainCard -=7;
 			
 		return true;
 	}
 
+	/// <summary>
+	/// 현재 덱의 카드를 표현하는 문자열을 만든다.
+	/// 카드가 없는 경우 "the deck is empty"로 반환한다.
+	/// </summary>
+	/// <returns></returns>
+	/// 
+	/// 입력
+	/// 처리
+	/// 1. 덱의 카드가 전부 0이면 the deck is empty" 로 반환하게 한다.
+	/// 출력
 	string  ToString()
 	{
-		static const string CARD_TYPE[] = { "♠","♣","♥","◆" };
-		static const string CARD_NUMBER[] = { "A","2","3","4","5","6","7","8","9","10","J","Q","K" };
-
+		
 		stringstream ss;
 
-		bool card_Exsit = true;
 		int card_count = 0;
 
 		for (int i = 0; i < 7; i++)
@@ -93,8 +99,9 @@ public:
 			}
 		}
 
+		//덱의 출력값이 null이면 the deck is empty 반환
 		if (card_count == 7) {
-			card_Exsit = false;
+			return "the deck is empty";
 		}
 
 
@@ -113,11 +120,7 @@ public:
 
 		}
 
-		//덱의 출력값이 null이면 the deck is empty 반환
-		if (card_Exsit == false)
-		{
-			return "the deck is empty";
-		}
+	
 
 		return ss.str();
 		
@@ -127,85 +130,90 @@ private:
 };
 
 
+const string Deck::CARD_TYPE[4] = { "♠","♣","♥","◆" };
+const string Deck::CARD_NUMBER[13] = { "A","2","3","4","5","6","7","8","9","10","J","Q","K" };
+bool Deck::isUsedCard[53] = { false };
+int Deck::remainCard = 53;
+
 
 
 /// <summary>
 /// 카드 7장을 뽑는다.
 /// </summary>
 /// <returns></returns>
-int* PickCard()
-{
-	int* deck = new int[7];
-
-	srand(time(NULL));
-
-	for (int i = 0; i < 7; i++)
-	{
-
-		int randomCard = rand() % 53;
-
-		/*
-		for (int j = 0; j < i; j++)
-		{
-			if (true == isUsedCard[randomCard])
-			{
-				j = - 1;
-				randomCard = rand() % 53;
-			}
-		}*/
-
-		do
-		{
-			randomCard = rand() % 53;
-		} while (true == isUsedCard[randomCard]);
-
-		deck[i] = randomCard;
-		isUsedCard[randomCard] = true;
-	}
-
-	return deck;
-
-}
+//int* PickCard()
+//{
+//	int* deck = new int[7];
+//
+//	srand(time(NULL));
+//
+//	for (int i = 0; i < 7; i++)
+//	{
+//
+//		int randomCard = rand() % 53;
+//
+//		/*
+//		for (int j = 0; j < i; j++)
+//		{
+//			if (true == isUsedCard[randomCard])
+//			{
+//				j = - 1;
+//				randomCard = rand() % 53;
+//			}
+//		}*/
+//
+//		do
+//		{
+//			randomCard = rand() % 53;
+//		} while (true == isUsedCard[randomCard]);
+//
+//		deck[i] = randomCard;
+//		isUsedCard[randomCard] = true;
+//	}
+//
+//	return deck;
+//
+//}
 
 /// <summary>
 /// 카드 7장을 뽑는다.
 /// </summary>
 /// <param name="deck">플레이어의 덱</param>
-void PickCard(int* deck)//deck is out parameter //pointer to int
-{
-	//중복되지 않게 카드를 뽑아야 함
-	//카드는 정수값 [0 , 52]
-	//deck의 크기는 7
-
-	srand(time(NULL));
-	
-	for (int i = 0; i < 7; i++)
-	{
-		
-		int randomCard = rand() % 53;
-
-		/*
-		for (int j = 0; j < i; j++)
-		{
-			if (true == isUsedCard[randomCard])
-			{
-				j = - 1;
-				randomCard = rand() % 53;
-			}
-		}*/
-
-		do
-		{
-			randomCard = rand() % 53;
-		} while (true == isUsedCard[randomCard]);
-
-		deck[i] = randomCard;
-		isUsedCard[randomCard] = true;
-		
-	}
-
-
-}
+//void PickCard(int* deck)//deck is out parameter //pointer to int
+//{
+//	//중복되지 않게 카드를 뽑아야 함
+//	//카드는 정수값 [0 , 52]
+//	//deck의 크기는 7
+//
+//	srand(time(NULL));
+//	
+//	for (int i = 0; i < 7; i++)
+//	{
+//		
+//		int randomCard = rand() % 53;
+//
+//		/*
+//		for (int j = 0; j < i; j++)
+//		{
+//			if (true == isUsedCard[randomCard])
+//			{
+//				j = - 1;
+//				randomCard = rand() % 53;
+//			}
+//		}*/
+//
+//		do
+//		{
+//			randomCard = rand() % 53;
+//		} while (true == isUsedCard[randomCard]);
+//
+//		deck[i] = randomCard;
+//		isUsedCard[randomCard] = true;
+//		
+//	}
+//
+//
+//}
 
 
 /// <summary>
