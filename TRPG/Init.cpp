@@ -115,6 +115,11 @@ void Test_1(Player* player)
 		player->setConcentration(--Concentration);
 
 
+		if (player1->getStamina() <= 0)
+		{
+			break;
+		}
+
 
 	}
 
@@ -213,7 +218,7 @@ void Init()
 
 
 
-	if (player1->getStamina() == 0)
+	if (player1->getStamina() <= 0)
 	{
 		system("cls");
 		cout << "GAME OVER" << endl;
