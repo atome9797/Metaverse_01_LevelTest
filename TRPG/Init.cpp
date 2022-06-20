@@ -56,6 +56,14 @@ void store_1(Player* player)
 void cram_school(Player* player)
 {
 
+	if (player->getCoin() < 3)
+	{
+		cout << "돈이 없어요" << endl;
+		
+		Sleep(2000);
+		return;
+	}
+
 	system("cls");
 	//학원가면 집중도 오름
 	
@@ -69,6 +77,9 @@ void cram_school(Player* player)
 	
 	int Concentration = player->getConcentration();
 	
+
+	int coin = player->getCoin();
+	player->setCoin(coin - 3);
 	player->setConcentration(Concentration + random);
 
 	cout << "▷나가기" << endl;
