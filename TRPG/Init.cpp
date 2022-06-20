@@ -80,6 +80,8 @@ void cram_school(Player* player)
 void Test_1(Player* player)
 {
 	int test_result = 5;
+	int random = rand() % 2;
+	int answer = 0;
 
 	while (test_result > 0)
 	{
@@ -89,8 +91,16 @@ void Test_1(Player* player)
 		//테스트 할때 마다 체력 1씩 깍임
 		//체력 방전되면 공부 안함 => 매점에서 사먹는걸로 체력 체울수있음
 
-		int answer = test->math();
+		srand(time(NULL));
+		if (random == 0)
+		{
+			answer = test->math();
+		}
+		else {
+			answer = test->english();
+		}
 
+		
 		//사용자 정보
 		player1->UserInformation();
 
@@ -123,7 +133,13 @@ void Test_1(Player* player)
 
 	}
 
-	player->UpgradeScore("수학");
+	if (random == 0)
+	{
+		player->UpgradeScore("수학");
+	}
+	else {
+		player->UpgradeScore("과학");
+	}
 
 }
 

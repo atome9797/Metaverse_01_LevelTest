@@ -21,9 +21,13 @@ public:
 	int english()
 	{
 		cout << "영어 문제" << endl;
-		math_answer = 0;
+
+		cout << "과학자는 영어로? " << endl;
+		cout << "1번 student\t2번 craw\t3번 banana\t4번 scientist" << endl;
+
+		science_answer = 4;
 		//정답 리턴
-		return 0;
+		return science_answer;
 	}
 	int science()
 	{
