@@ -40,6 +40,7 @@ public:
 		cout << "국어 : " << korean_score << "등급" << endl;
 		cout << "자본금 : " << coin << endl;
 		cout << "체력 : " << stamina << endl;
+		cout << "집중력 : " << concentration << endl;
 		cout << "----------------------------------------\n";
 	}
 
@@ -65,6 +66,11 @@ public:
 		return stamina;
 	}
 
+	void setStamina(int stamina)
+	{
+		this->stamina = stamina;
+	}
+
 	int getCoin()
 	{
 		return coin;
@@ -75,6 +81,27 @@ public:
 		this->coin = coin;
 	}
 
+	bool isGotoSeoulUniversity()
+	{
+		if (math_score != 0 || english_score != 0 || science_score != 0 || korean_score != 0)
+		{
+			return false;
+		}
+
+		return true;
+	}
+
+
+	void setConcentration(int concentration)
+	{
+		this->concentration = concentration;
+	}
+
+	int getConcentration()
+	{
+		return concentration;
+	}
+
 private:
 	string _user_name = "";
 	int math_score = 9;
@@ -83,4 +110,5 @@ private:
 	int korean_score = 9;
 	int coin = 10;
 	int stamina = 10;
+	int concentration = 10;
 };

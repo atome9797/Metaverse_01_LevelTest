@@ -8,8 +8,8 @@ public:
 
 		cout << "구매 하실 품목을 선택해 주세요." << endl;
 		cout << "-----------------------------\n";
-		cout << "1.빵 (스테미터 5 회복)" << endl;
-		cout << "2.우유 (스테미터 3 회복)" << endl;
+		cout << "1.빵 (스테미너 5 회복)" << endl;
+		cout << "2.우유 (스테미너 3 회복)" << endl;
 		cout << "3.노트 (집중력 3 회복)" << endl;
 		cout << "4.연필 (집중력 5 회복)" << endl;
 		cout << "5.나가기" << endl;
@@ -39,6 +39,27 @@ public:
 				player->plusStamina();
 			}
 		}
+		else if (num == 3 && playerCoin >= 3)
+		{
+			playerCoin -= 3;
+			player->setCoin(playerCoin);
+			
+			int concentration = player->getConcentration();
+			concentration += 3;
+			
+			player->setConcentration(concentration);
+		}
+		else if (num == 4 && playerCoin >= 5)
+		{
+			playerCoin -= 5;
+			player->setCoin(playerCoin);
+
+			int concentration = player->getConcentration();
+			concentration += 5;
+
+			player->setConcentration(concentration);
+		}
+
 
 		return true;
 	}

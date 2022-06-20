@@ -52,6 +52,30 @@ void store_1(Player* player)
 
 }
 
+void cram_school(Player* player)
+{
+
+	system("cls");
+	//학원가면 집중도 오름
+	
+	srand(time(NULL));
+
+	//1에서 5사이의 랜덤으로 집중력 오름
+	int random = rand() % 5;
+
+	cout << "학원 비용은 3코인 입니다." << endl;
+	cout << "당신의 집중력은 "<< random << "올랐습니다." << endl;
+	
+	int Concentration = player->getConcentration();
+	
+	player->setConcentration(Concentration + random);
+
+	cout << "▷나가기" << endl;
+
+	int key = _getch();
+
+	
+}
 
 void Test_1(Player* player)
 {
@@ -77,7 +101,21 @@ void Test_1(Player* player)
 		{
 			test_result--;
 		}
-		player->minorsStamina();
+
+		int Concentration = player->getConcentration();
+		if (Concentration > 5)
+		{
+			player->minorsStamina();
+		}
+		else
+		{
+			player->minorsStamina();
+			player->minorsStamina();
+		}
+		player->setConcentration(--Concentration);
+
+
+
 	}
 
 	player->UpgradeScore("수학");
@@ -157,13 +195,23 @@ void Init()
 		}
 		else if (menu_number == 1) //학원
 		{
-
+			cram_school(player1);
 		}
 		else if (menu_number == 2) //매점
 		{
 			store_1(player1);
 		}
+
+		if (player1->isGotoSeoulUniversity())
+		{
+			system("cls");
+			cout << "서울대 합격!" << endl;
+			break;
+		}
+		
 	}
+
+
 
 	if (player1->getStamina() == 0)
 	{
