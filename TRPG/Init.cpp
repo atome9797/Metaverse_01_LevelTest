@@ -4,6 +4,7 @@
 #include "Test.h"
 #include <conio.h> 
 #include <iostream>
+#include <windows.h>
 
 using namespace std;
 
@@ -132,6 +133,13 @@ void Test_1(Player* player)
 
 
 	}
+
+	//테스트 통과시 엄마한테 용돈받음
+	cout << "테스트 통과했습니다. 부모님에게 용돈 5코인 받았습니다." << endl;
+	int coin = player->getCoin();
+	player->setCoin(coin + 5);
+
+	Sleep(2000);
 
 	if (random == 0)
 	{
